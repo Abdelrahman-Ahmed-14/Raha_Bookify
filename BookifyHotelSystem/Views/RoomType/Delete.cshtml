@@ -1,0 +1,33 @@
+﻿@model RoomType
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+
+<h2 class="text-danger">Delete @Model.TypeName !</h2>
+
+<form asp-action="Delete" method="post">
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="TypeName"></label>
+        </div>
+        <div class="col-5">
+            <input asp-for="TypeName" class="form-control" disabled />
+            <input type="hidden" asp-for="Id" />
+        </div>
+        <span asp-validation-for="TypeName" class="text-danger"></span>
+    </div>
+    <div class="">
+        <input type="submit" class="btn btn-danger" value="Delete" />
+        <a asp-action="Index" class="btn btn-success">Back To List</a>
+    </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

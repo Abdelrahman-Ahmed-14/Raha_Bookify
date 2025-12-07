@@ -1,0 +1,120 @@
+﻿@using BookifyHotelSystem.Utilities
+@using BookifyHotelSystem.View_Model
+@model Booking
+@inject IHttpContextAccessor iHttpContextAccessor
+@{
+    ViewData["Title"] = "Booking Details";
+
+    List<RoomViewModel> rooms = iHttpContextAccessor.HttpContext.Session.Get<List<RoomViewModel>>("rooms");
+
+    if (rooms == null)
+    {
+        rooms = new List<RoomViewModel>();
+    }
+}
+
+<br />
+
+<h2>Booking Details</h2>
+
+<form asp-action="Checkout" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border row">
+        <div asp-validation-summary="All" class="text-danger">
+        </div>
+        <div class="col-6">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="BookingNo"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="BookingNo" value="@ViewBag.OrderNumber" disabled class="form-control" />
+                    <span asp-validation-for="BookingNo" class="text-danger"></span>
+                </div>
+
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="UserName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="UserName" readonly value="@ViewBag.UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="StartDate"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="EndDate"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="EndDate" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Email"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+            </div>
+            <br />
+
+        </div>
+
+        <div class="col-6">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in rooms)
+                    {
+                        <tr>
+                            <td><img src="@r.Image" height="100px" width="150px" /></td>
+                            <td>@r.Name</td>
+                            <td id="">@r.PricePerNight</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-end">
+            @* <h3>Total Price : @rooms.Sum(p => p.PricePerNight) </h3> *@
+         
+        </div>
+        <div class="form-group text-end">
+            <input type="submit" value="Booking Now" class="btn btn-success" />
+        </div>
+
+    </div>
+</form>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+     
+}

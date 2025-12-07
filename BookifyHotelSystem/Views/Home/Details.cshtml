@@ -1,0 +1,218 @@
+﻿@using BookifyHotelSystem.Utilities
+@using BookifyHotelSystem.View_Model
+@inject IHttpContextAccessor iHttpContextAccessor;
+@model BookifyHotelSystem.Models.Room;
+
+@{
+    ViewData["Title"] = "Details";
+
+    List<RoomViewModel> rooms = iHttpContextAccessor.HttpContext.Session.Get<List<RoomViewModel>>("rooms");
+
+    RoomViewModel room = null;
+
+    if (rooms != null)
+    {
+        room = rooms.FirstOrDefault(r => r.Id == Model.Id);
+    }
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/room-details.css" />
+}
+
+
+<!-- Room Details Section -->
+<section class="room-details-section py-5">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-modern mb-4">
+            <a href="index.html" class="breadcrumb-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <i class="fas fa-chevron-right breadcrumb-separator"></i>
+            <a href="index.html#rooms" class="breadcrumb-link">
+                <i class="fas fa-door-open"></i>
+                <span>Rooms</span>
+            </a>
+            <i class="fas fa-chevron-right breadcrumb-separator"></i>
+            <span class="breadcrumb-current" id="breadcrumbRoom">Room Details</span>
+        </div>
+
+        <!-- Room Header -->
+        <div class="room-header mb-4">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="room-title mb-2" id="roomTitle">@Model.Name</h1>
+                    <p class="room-subtitle mb-3" id="roomSubtitle">
+                        A cozy room with all the essentials for a
+                        comfortable stay
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <div class="room-price-header">
+                        <div class="price-label-header">Starting from</div>
+                        <div class="price-value-header">
+                            <span class="currency">EGP</span>
+                            <span class="amount" id="roomPrice">@Model.PricePerNight</span>
+                            <span class="per-night">/night</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Room Gallery -->
+                <div class="room-gallery-sidebar mb-4">
+                    <div class="row g-2">
+                        <div class="col-12">
+                            <div class="main-image-container">
+                                <img id="mainRoomImage" src="@Model.Image" alt="Room" class="img-fluid main-room-img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Room Features -->
+                <div class="content-card mb-4">
+                    <h3 class="content-title">
+                        <i class="fas fa-star-of-life"></i>
+                        Room Amenities
+                    </h3>
+                    <div class="amenities-grid">
+                        <div class="amenity-item">
+                            <div class="amenity-icon">
+                                <i class="fas fa-wifi"></i>
+                            </div>
+                            <div class="amenity-text">
+                                <h5>Free Wi-Fi</h5>
+                                <p>High-speed internet</p>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <div class="amenity-icon">
+                                <i class="fas fa-tv"></i>
+                            </div>
+                            <div class="amenity-text">
+                                <h5>Smart TV</h5>
+                                <p>55" LED display</p>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <div class="amenity-icon">
+                                <i class="fas fa-snowflake"></i>
+                            </div>
+                            <div class="amenity-text">
+                                <h5>Air Conditioning</h5>
+                                <p>Climate control</p>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <div class="amenity-icon">
+                                <i class="fas fa-bath"></i>
+                            </div>
+                            <div class="amenity-text">
+                                <h5>Private Bathroom</h5>
+                                <p>Rain shower</p>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <div class="amenity-icon">
+                                <i class="fas fa-concierge-bell"></i>
+                            </div>
+                            <div class="amenity-text">
+                                <h5>Room Service</h5>
+                                <p>24/7 available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Booking Card Sidebar -->
+            <div class="col-lg-4">
+                <div class="booking-card-modern ">
+                    <div class="booking-card-header">
+                        <h4>Reserve Your Stay</h4>
+                        <p>Book now and enjoy exclusive benefits</p>
+                    </div>
+
+                    <form id="bookingForm" asp-action="Details" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="date-inputs-row">
+                            <div class="date-input-group">
+                                <label for="StartDate" class="form-label">
+                                    <i class="fas fa-calendar-check"></i> Check-in
+                                </label>
+                                <input type="date" class="form-control" id="StartDate" name="StartDate"
+                                    value="@ViewBag.StartDate"
+                                    min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                            </div>
+                            <br>
+                            <div class="date-input-group">
+                                <label for="EndDate" class="form-label">
+                                    <i class="fas fa-calendar-times"></i> Check-out
+                                </label>
+                                <input type="date" class="form-control" id="EndDate" name="EndDate"
+                                    value="@ViewBag.EndDate"
+                                    min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" required>
+                            </div>
+                        </div>
+                        <div class="price-breakdown">
+                            <div class="price-row">
+                                <span id="pricePerNight">EGP @Model.PricePerNight</span>
+                                <span>x <span id="numberOfNights">1</span> nights</span>
+                            </div>
+                            <div class="price-divider"></div>
+                            <div class="price-total">
+                                <span>Total Price</span>
+                                <span id="totalPrice" class="total-amount">EGP @Model.PricePerNight</span>
+                            </div>
+                        </div>
+                        @if (room == null)
+                        {
+                            <button type="submit" class="btn-reserve">
+                                <i class="fas fa-calendar-check"></i>
+                                Add to Reservation Cart
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn-reserve btn-remove" asp-action="Remove"
+                                asp-route-id="@Model.Id">
+                                <i class="fas fa-calendar-times"></i>
+                                Remove from Reservation Cart
+                            </button>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/room_details.js"></script>
+}
+
+
+@*       </div> *@
+@*  <div class="col-3">
+            <img src="@Model.Image" width="300px" style="border-radius:5px; border:1px solid" />
+            @if (Model.IsAvailable)
+            {
+                <img src="~/Images/inStock.jpeg" width="300px" />
+            }
+            else
+            {
+                <img src="~/Images/notAvailable.jpeg" width="300px" />
+            }
+        </div> *@
+@* 
+    </div>
+@* </form> * *@

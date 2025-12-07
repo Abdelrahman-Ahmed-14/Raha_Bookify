@@ -1,0 +1,333 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<Room>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Hero Section -->
+<section class="hero-section" id="home">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Experience comfort and elegance in the heart of the city</h1>
+            <a href="#rooms" class="book-now-btn">
+                Book Now
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section py-5" id="about">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop"
+                        alt="Hotel Lobby" class="img-fluid rounded-4">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <h2 class="section-title">About Us</h2>
+                <div class="about-content">
+                    <p class="lead">
+                        Experience a new level of comfort at Raha Hotel, where modern design meets
+                        genuine hospitality.
+                    </p>
+                    <p>
+                        From stylish rooms to exceptional service, we make sure every moment of your stay is
+                        effortless and memorable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="facilities-section py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Why Choose Us</h2>
+        <h3 class="text-center mb-4">Hotel Facilities</h3>
+
+        <div class="row g-4">
+            <!-- Free Wi-Fi -->
+            <div class="col-md-6 col-lg-4">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h4>Free Wi-Fi</h4>
+                    <p>Stay connected with high-speed internet available in all rooms and public areas</p>
+                </div>
+            </div>
+
+            <!-- 24/7 Room Service -->
+            <div class="col-md-6 col-lg-4">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <h4>24/7 Room Service</h4>
+                    <p>Enjoy full-time service for your comfort, whatever you need, we're just a call away</p>
+                </div>
+            </div>
+
+            <!-- Swimming Pool -->
+            <div class="col-md-6 col-lg-4">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-swimming-pool"></i>
+                    </div>
+                    <h4>Swimming Pool</h4>
+                    <p>Take a refreshing dip in our clean and spacious outdoor pool</p>
+                </div>
+            </div>
+
+            <!-- Airport Pickup -->
+            <div class="col-md-6 col-lg-4">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-plane-departure"></i>
+                    </div>
+                    <h4>Airport Pickup</h4>
+                    <p>We offer convenient airport transfer to make your arrival stress-free</p>
+                </div>
+            </div>
+
+            <!-- Modern Rooms -->
+            <div class="col-md-6 col-lg-4">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h4>Modern Rooms</h4>
+                    <p>Experience comfort in our stylish, fully equipped rooms designed for relaxation</p>
+                </div>
+            </div>
+
+            <!-- Central Location -->
+            <div class="col-md-6 col-lg-4">
+                <div class="facility-card">
+                    <div class="facility-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4>Central Location</h4>
+                    <p>
+                        Stay close to everything, our hotel is located in the heart of the city near to everything
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Rooms Section -->
+<section class="rooms-section py-5" id="rooms">
+    <div class="container">
+        <h2 class="section-title">Rooms</h2>
+        <p class="section-subtitle mb-5">
+            Find your perfect stay, stylish, clean, and comfortable rooms designed for
+            you
+        </p>
+        <div class="row">
+            @foreach (var r in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="room-card">
+                        <div class="room-image">
+                            <img src="@r.Image" alt="Standard Room">
+                        </div>
+                        <div class="room-info">
+                            <h4>@r.Name</h4>
+                            <p>room with all the essentials for a comfortable stay</p>
+                            <div class="room-footer">
+                                <div class="room-price">
+                                    <span class="price">@r.PricePerNight</span>
+                                    <span class="period">/ night</span>
+                                </div>
+                                <a asp-controller="Home" asp-action="Details" asp-route-id="@r.Id"
+                                    class="btn btn-dark btn-sm">Room Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+
+    </div>
+
+    <!-- Pagination -->
+    @if (Model.PageCount > 1)
+    {
+        <nav aria-label="Page navigation" class="mt-5">
+            <ul class="pagination pagination-sm justify-content-center">
+                <!-- Previous Button -->
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link"
+                        href="@(Model.HasPreviousPage? Url.Action("Index", new { page = Model.PageNumber - 1 }) : "#")#rooms"
+                        tabindex="@(Model.HasPreviousPage ? 0 : -1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = i })#rooms">@i</a>
+                    </li>
+                }
+
+                <!-- Next Button -->
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link"
+                        href="@(Model.HasNextPage? Url.Action("Index", new { page = Model.PageNumber + 1 }) : "#")#rooms"
+                        tabindex="@(Model.HasNextPage ? 0 : -1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+</section>
+
+<!-- Guest Reviews Section -->
+<section class="reviews-section py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">Guest Reviews</h2>
+        <p class="section-subtitle mb-5">Real experiences from guests who stayed at Our Hotel</p>
+
+        <div class="row g-4">
+            <!-- Review 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="review-card">
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-number">5.0</span>
+                    </div>
+                    <p class="review-text">The hotel was clean and quiet. The staff were super helpful</p>
+                    <p class="review-author">Sarah Mohamed</p>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="review-card">
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-number">5.0</span>
+                    </div>
+                    <p class="review-text">Amazing view and comfy beds. Would definitely come again</p>
+                    <p class="review-author">Mohamed Ahmed</p>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="review-card">
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-number">5.0</span>
+                    </div>
+                    <p class="review-text">Perfect location and excellent service. Highly recommend!</p>
+                    <p class="review-author">Ahmed Hassan</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section py-5" id="contact">
+    <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle mb-5">
+            We'd love to hear from you! Whether you have a question, feedback, or
+            project idea - just send us a message and we'll get back to you soon.
+        </p>
+
+        <div class="row g-4">
+            <!-- Map and Contact Info -->
+            <div class="col-lg-6">
+                <div class="map-container mb-4">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55251.37706416796!2d31.233334!3d30.044420!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1234567890"
+                        width="100%" height="300" style="border:0; border-radius: 15px;" allowfullscreen=""
+                        loading="lazy"></iframe>
+                </div>
+
+                <div class="contact-info-list">
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Location</h5>
+                            <p>123 Downtown Street, Cairo, Egypt</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h5>Contact</h5>
+                            <p>+20 111 234 5678</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h5>Email</h5>
+                            <p>info@serenityhotel.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-lg-6">
+                <div class="contact-form-container">
+                    <h3 class="mb-4">Get in Touch</h3>
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Email Phone</label>
+                            <input type="tel" class="form-control" id="phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-dark btn-lg w-100">SEND MESSAGE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

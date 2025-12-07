@@ -1,0 +1,157 @@
+﻿@using BookifyHotelSystem.View_Model
+@model List<RoomViewModel>
+@{
+    ViewData["Title"] = "Cart";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/cart.css" />
+}
+
+@section Scripts {
+    <script src="~/js/cart.js"></script>
+}
+
+<!-- Cart Section -->
+<section class="cart-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Table column -->
+            <div class="col-lg-8">
+                <div class="content-card p-4 mb-4">
+                    <h3 class="content-title mb-3">
+                        <i class="fas fa-shopping-cart"></i>
+                        Your Cart
+                    </h3>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        <form asp-action="Checkout" asp-controller="Booking" method="get" id="cartForm">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle" id="cartTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Room</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Nights</th>
+                                            <th>Price/Night</th>
+                                            <th>Total</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cartBody">
+                                        @for (int i = 0; i < Model.Count; i++)
+                                        {
+                                            <tr data-id="@Model[i].Id" class="cart-row" data-price="@Model[i].PricePerNight">
+                                                <td>
+                                                    <img src="@Model[i].Image" class="cart-table-img" alt="@Model[i].Name">
+                                                </td>
+                                                <td>
+                                                    <strong>@Model[i].Name</strong>
+                                                    <input type="hidden" name="[@i].Id" value="@Model[i].Id" />
+                                                    <input type="hidden" name="[@i].Name" value="@Model[i].Name" />
+                                                    <input type="hidden" name="[@i].PricePerNight"
+                                                        value="@Model[i].PricePerNight" />
+                                                    <input type="hidden" name="[@i].RoomTypeName"
+                                                        value="@Model[i].RoomTypeName" />
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control form-control-sm cart-start"
+                                                        name="[@i].StartDate"
+                                                        value="@(Model[i].StartDate?.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString("yyyy-MM-dd"))"
+                                                        min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control form-control-sm cart-end"
+                                                        name="[@i].EndDate"
+                                                        value="@(Model[i].EndDate?.ToString("yyyy-MM-dd") ?? DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"))"
+                                                        min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" required />
+                                                </td>
+                                                <td class="cart-nights">
+                                                    <strong>@(Model[i].Nights > 0 ? Model[i].Nights : 1)</strong>
+                                                </td>
+                                                <td class="cart-price">
+                                                    <strong>EGP @Model[i].PricePerNight</strong>
+                                                </td>
+                                                <td class="cart-total">
+                                                    <strong>EGP @(Model[i].TotalPrice > 0 ? Model[i].TotalPrice :
+                                                                                                        Model[i].PricePerNight)</strong>
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Home" asp-action="Remove" asp-route-id="@Model[i].Id"
+                                                    class="btn btn-sm btn-outline-danger" title="Remove">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                                        }
+                                        else
+                    {
+                        <div class="empty-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Your cart is empty</h3>
+                            <p>Start adding rooms to your cart to book your perfect stay!</p>
+                            <a asp-controller="Home" asp-action="Index" asp-fragment="rooms" class="btn btn-gold">
+                                <i class="fas fa-door-open"></i> Browse Rooms
+                            </a>
+                        </div>
+                    }
+                </div>
+
+                @if (Model != null && Model.Any())
+                {
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> Back To Home
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <!-- Sidebar column -->
+            @if (Model != null && Model.Any())
+            {
+                <div class="col-lg-4">
+                    <div class="cart-sidebar p-4 content-card">
+                        <h4 class="mb-3">Order Summary</h4>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Number of Rooms</span>
+                            <strong>@Model.Count</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Total Nights</span>
+                            <strong id="totalNights">@Model.Sum(r => r.Nights > 0 ? r.Nights : 1)</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <strong id="cartSubtotal">EGP <span id="subtotalAmount">@Model.Sum(r => r.TotalPrice > 0 ?
+                                                                    r.TotalPrice : r.PricePerNight)</span></strong>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="h5 mb-0">Total</span>
+                        <span class="h5 mb-0 text-primary" id="cartTotal">EGP <span id="totalAmount">@Model.Sum(r =>
+                                                                r.TotalPrice > 0 ? r.TotalPrice : r.PricePerNight)</span></span>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" form="cartForm" class="btn btn-gold w-100">
+                            <i class="fas fa-calendar-check"></i> Confirm Booking
+                        </button>
+                    </div>
+                    <p class="text-muted small mt-3">
+                        <i class="fas fa-info-circle"></i>
+                        Update dates to see price changes. Click Confirm to proceed.
+                    </p>
+                </div>
+            </div>
+                        }
+        </div>
+    </div>
+</section>

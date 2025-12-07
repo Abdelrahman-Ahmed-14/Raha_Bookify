@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IdentityRole
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+
+<h2>Add New Role</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" id="role-form">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="All" class="text-danger">
+        </div>
+        <h3 class="text-danger">@ViewBag.message</h3>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Name"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <br />
+
+        <div>
+            <input type="submit" class="btn btn-primary" value="Add" />
+            <a asp-action="Index" class="btn btn-success">Back To List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+   
+    <script>
+        $(document).ready(function () {
+            $("#role-form").validate({
+                rules: {
+                    UserName: {
+                        required: true
+                    }
+                }
+            });
+        });
+    </script>
+}

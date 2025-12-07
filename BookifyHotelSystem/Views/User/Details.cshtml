@@ -1,0 +1,79 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+
+<h2 class="text-warning">@Model.UserName Details</h2>
+
+<form asp-action="Details" method="post" enctype="multipart/form-data" id="user-form">
+    <div class="p-4 rounded border">
+
+
+        <h3 class="text-danger">@ViewBag.message</h3>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="UserName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="UserName" value="@Model.UserName" disabled class="form-control" />
+                <input asp-for="Id" type="hidden" value="@Model.Id" />
+            </div>
+
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Email"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Email" disabled class="form-control" type="em" />
+            </div>
+
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="FullName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="FullName" disabled class="form-control" />
+            </div>
+
+        </div>
+        <br />
+        <div class="">
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Delete</a>
+            <a asp-action="Index" class="btn btn-outline-primary">Back To List</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-success">Update</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+    <script>
+        $(document).ready(function () {
+            $("#user-form").validate({
+                rules: {
+                    UserName: {
+                        required: true
+                    } ,
+                    PasswordHash: {
+                        required: true
+                    } ,
+                    Email: {
+                        required: true
+                    } ,
+                    Address: {
+                        required: true
+                    }
+                }
+            });
+        });
+    </script>
+}

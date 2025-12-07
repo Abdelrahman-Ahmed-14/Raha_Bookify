@@ -1,0 +1,81 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "Lockout";
+}
+
+<br />
+
+<h2 class="text-danger">Lockout @Model.UserName</h2>
+
+<form asp-action="Lockout" method="post" enctype="multipart/form-data" id="user-form">
+    <div class="p-4 rounded border">
+        <h4 class="text-danger">Do you want Lockout this user</h4>
+        <div asp-validation-summary="All" class="text-danger">
+        </div>
+        <h3 class="text-danger">@ViewBag.message</h3>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="UserName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="UserName" value="@Model.UserName" disabled class="form-control" />
+                <input asp-for="Id" type="hidden" value="@Model.Id" />
+            </div>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Email"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Email" disabled class="form-control" type="em" />
+            </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="FullName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="FullName" disabled class="form-control" />
+            </div>
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="">
+            <input type="submit" class="btn btn-danger" value="Lockout" />
+            <a asp-action="Index" class="btn btn-success">Back To List</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Update</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+ 
+    <script>
+        $(document).ready(function () {
+            $("#user-form").validate({
+                rules: {
+                    UserName: {
+                        required: true
+                    } ,
+                    PasswordHash: {
+                        required: true
+                    } ,
+                    Email: {
+                        required: true
+                    } ,
+                    Address: {
+                        required: true
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,88 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+
+<h2>Add New User</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" id="user-form">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="All" class="text-danger">
+        </div>
+        <h3 class="text-danger">@ViewBag.message</h3>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="UserName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="UserName" required class="form-control" />
+            </div>
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label>Password</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="PasswordHash" required type="password" class="form-control" />
+            </div>
+            <span asp-validation-for="PasswordHash" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Email"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Email" required class="form-control" type="em" />
+            </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="FullName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="FullName" required class="form-control" />
+            </div>
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="">
+            <input type="submit" class="btn btn-primary" value="Save" />
+            <a asp-action="Index" class="btn btn-success">Back To List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+
+    <script>
+        $(document).ready(function () {
+            $("#user-form").validate({
+                rules: {
+                    UserName: {
+                        required: true
+                    } ,
+                    PasswordHash: {
+                        required: true
+                    } ,
+                    Email: {
+                        required: true
+                    } ,
+                    Address: {
+                        required: true
+                    }
+                }
+            });
+        });
+    </script>
+}

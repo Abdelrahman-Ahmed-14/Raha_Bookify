@@ -1,0 +1,50 @@
+﻿@using BookifyHotelSystem.View_Model
+@model RoleUserViewModel
+@{
+    ViewData["Title"] = "Assign";
+}
+
+<br />
+
+<h2>Assign Role</h2>
+
+<form asp-action="Assign" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="All" class="text-danger">
+        </div>
+        <h3 class="text-danger">@ViewBag.msg</h3>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="UserId"></label>
+            </div>
+            <div class="col-5">
+                <select class="form-control" asp-for="UserId" asp-items="@ViewBag.UserId">
+                </select>
+            </div>
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="RoleId"></label>
+            </div>
+            <div class="col-5">
+                <select class="form-control" asp-for="RoleId" asp-items="@ViewBag.RoleId">
+                </select>
+            </div>
+            <span asp-validation-for="RoleId" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="">
+            <input type="submit" class="btn btn-primary" value="Assign" />
+            <a asp-action="Index" class="btn btn-success">Back To List</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

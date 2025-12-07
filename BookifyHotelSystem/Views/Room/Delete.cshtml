@@ -1,0 +1,87 @@
+﻿@model Room
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+
+<h2 class="text-danger">Delete product @Model.Name</h2>
+
+<form asp-action="Delete" method="post" enctype="multipart/form-data">
+    <div class="p-4 rounded border row">
+        <div asp-validation-summary="All" class="text-danger">
+        </div>
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" disabled class="form-control" />
+                    <input asp-for="Id" type="hidden" />
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="PricePerNight"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="PricePerNight" disabled class="form-control" />
+                </div>
+                <span asp-validation-for="PricePerNight" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Image"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Image" disabled class="form-control" type="file" />
+                </div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <br />
+            
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="RoomTypeId"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="RoomType.TypeName" disabled class="form-control" />
+                </div>
+                <span asp-validation-for="RoomTypeId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="IsAvailable"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="IsAvailable" disabled type="checkbox" />
+                </div>
+                <span asp-validation-for="IsAvailable" class="text-danger"></span>
+            </div>
+            <br />
+             
+            <div class="">
+                <input type="submit" class="btn btn-danger" value="Delete" />
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-success">Edit</a>
+                <a asp-action="Index" class="btn btn-success">Back To List</a>
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3">
+            <img src="@Model.Image" width="300px" style="border-radius:5px; border:1px solid" />
+        </div>
+
+    </div>
+</form>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

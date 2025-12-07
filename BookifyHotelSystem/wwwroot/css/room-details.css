@@ -1,0 +1,353 @@
+/* Room Details Page - Modern Design */
+
+/* Modern Breadcrumb */
+.breadcrumb-modern {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+    color: var(--accent-dark);
+}
+
+.breadcrumb-link i {
+    font-size: 1rem;
+}
+
+.breadcrumb-separator {
+    color: var(--text-light);
+    font-size: 0.75rem;
+}
+
+.breadcrumb-current {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+
+.room-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.room-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+.room-price-header {
+    text-align: right;
+}
+
+.price-label-header {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-value-header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 0.25rem;
+}
+
+.price-value-header .currency {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.price-value-header .per-night {
+    font-size: 1rem;
+    color: var(--text-light);
+    font-weight: 400;
+}
+
+/* Gallery in Sidebar Layout */
+.room-gallery-sidebar {
+    position: relative;
+}
+
+.room-gallery-sidebar .main-image-container {
+    position: relative;
+    height: 100%;
+    min-height: 450px;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.room-gallery-sidebar .main-room-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.room-gallery-sidebar .main-image-container:hover .main-room-img {
+    transform: scale(1.05);
+}
+
+
+
+/* Amenities Grid */
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.amenity-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.amenity-item:hover {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.amenity-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+    color: white;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.amenity-text h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0 0 0.25rem 0;
+}
+
+.amenity-text p {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+
+/* Modern Booking Card */
+.booking-card-modern {
+    position: sticky;
+    top: 120px;
+    background: white;
+    border: 2px solid var(--accent-color);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 40px rgba(212, 165, 116, 0.15);
+}
+
+.booking-card-header {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f3f4f6;
+    margin-bottom: 1.5rem;
+}
+
+.booking-card-header h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.booking-card-header p {
+    color: var(--text-light);
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.date-inputs-row {
+    margin-bottom: 1.5rem;
+}
+
+.date-input-group label {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.date-input-group label i {
+    color: var(--accent-color);
+}
+
+.date-input-group input {
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+
+.date-input-group input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+}
+
+/* Price Breakdown */
+.price-breakdown {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.price-divider {
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+    margin: 1rem 0;
+}
+
+.price-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.total-amount {
+    color: var(--accent-color);
+    font-size: 1.75rem;
+}
+
+/* Reserve Button */
+.btn-reserve {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+}
+
+.btn-reserve:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 165, 116, 0.4);
+}
+
+.btn-reserve:active {
+    transform: translateY(0);
+}
+
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .room-title {
+        font-size: 2rem;
+    }
+
+    .price-value-header {
+        font-size: 2rem;
+        justify-content: flex-start;
+    }
+
+    .room-price-header {
+        text-align: left;
+        margin-top: 1rem;
+    }
+
+    .room-gallery-sidebar .main-image-container {
+        height: 350px;
+        min-height: 350px;
+    }
+
+    .thumbnails-column {
+        flex-direction: row;
+        margin-bottom: 1rem;
+    }
+
+    .thumbnails-column .gallery-thumb-modern {
+        height: 80px;
+        min-height: 80px;
+        margin-right: 0.5rem;
+        margin-bottom: 0 !important;
+    }
+
+    .thumbnails-column .gallery-thumb-modern:last-child {
+        margin-right: 0;
+    }
+
+    .booking-card-modern {
+        position: static !important;
+        margin-top: 2rem;
+    }
+
+    .amenities-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .room-title {
+        font-size: 1.75rem;
+    }
+
+    .room-gallery-sidebar .main-image-container {
+        height: 250px;
+        min-height: 250px;
+    }
+
+    .content-card {
+        padding: 1.5rem;
+    }
+
+    .booking-card-modern {
+        padding: 1.5rem;
+    }
+}

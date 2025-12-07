@@ -1,0 +1,64 @@
+﻿@model List<Room>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h3 class="text-warning">@TempData["save"]</h3>
+<div class="row">
+    <div class="col-6">
+        <h2>Rooms list</h2>
+    </div>
+
+    <div class="col-6">
+        <a class="btn btn-info" asp-action="Create"><i class="fa-solid fa-plus"></i> Add new Room</a>
+    </div>
+</div>
+
+<br />
+
+<div>
+    <table id="myTable" class="table table-striped table-hover border">
+        <thead>
+            <tr class="table-info">
+                <th>Product Name</th>
+                <th>Price Per Night</th>
+                
+                <th>Image</th>
+                <th>Available</th>
+                <th>Room Type</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Name</td>
+                    <td>@r.PricePerNight</td>
+                    <td><img src="@r.Image" width="100px" height="50px" alt="Alternate Text" /></td>
+                    <td>@r.IsAvailable</td>
+                    <td>@r.RoomType.TypeName</td>
+                    <td>
+                    <td style="width:150px">
+                        <div class="btn-group">
+                    <td style="width:150px">
+                        <div class="btn-group">
+                            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@r.Id"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@r.Id"><i class="fa-solid fa-trash"></i></a>
+                            <a asp-action="Details" class="btn btn-success" asp-route-id="@r.Id"><i class="fa-solid fa-circle-info"></i></a>
+                        </div>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+@section Scripts {
+    
+}
